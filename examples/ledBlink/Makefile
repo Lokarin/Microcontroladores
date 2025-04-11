@@ -489,12 +489,12 @@ endif
 # ------------------------------------------------------------------------------
 
 assemble: $(BUILD_DIR)
-#	avra -fI -m "$(BUILD_DIR)/application.map" -l "$(BUILD_DIR)/application.lss" -e "$(BUILD_DIR)/application.eep" -d "$(BUILD_DIR)/application.o" -o "$(BUILD_DIR)/application.hex" main.asm
-#	mv -f main.eep.hex $(BUILD_DIR)/application.hex
-#	mv -f main.cof $(BUILD_DIR)/application.cof
-#	mv -f main.obj $(BUILD_DIR)/application.obj
-#	mv -f main.hex $(BUILD_DIR)/application.hex
-	avrasm2 -fI -o "$(BUILD_DIR)/application.hex" -m "$(BUILD_DIR)/application.map" -l "$(BUILD_DIR)/application.lss" -e "$(BUILD_DIR)/application.eep" -S "$(BUILD_DIR)/application.tmp" -W+ie -d "$(BUILD_DIR)/application.o" main.asm
+	avra -fI -m "$(BUILD_DIR)/application.map" -l "$(BUILD_DIR)/application.lss" -e "$(BUILD_DIR)/application.eep" -d "$(BUILD_DIR)/application.o" -o "$(BUILD_DIR)/application.hex" main.asm
+	#mv -f main.eep.hex $(BUILD_DIR)/application.hex
+	#mv -f main.cof $(BUILD_DIR)/application.cof
+	#mv -f main.obj $(BUILD_DIR)/application.obj
+	#mv -f main.hex $(BUILD_DIR)/application.hex
+	#avrasm2 -fI -o "$(BUILD_DIR)/application.hex" -m "$(BUILD_DIR)/application.map" -l "$(BUILD_DIR)/application.lss" -e "$(BUILD_DIR)/application.eep" -S "$(BUILD_DIR)/application.tmp" -W+ie -d "$(BUILD_DIR)/application.o" main.asm
 
 # ------------------------------------------------------------------------------
 # Compile recipe
