@@ -91,7 +91,7 @@
 ; ------------------------------------------------------------------------------
 ; Main function
 ; ------------------------------------------------------------------------------
-main:
+main: ;Rotulo guarda o endereço da proxima instrucao
     SBI     DDRB, PB5
 mainLoop:
     SBI     PORTB, PB5
