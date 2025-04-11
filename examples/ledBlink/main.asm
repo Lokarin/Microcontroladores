@@ -5,7 +5,7 @@
 ; File:     ledBlink.asm
 ; Author:   Leandro Schwarz
 ; Created:  2024-09-23
-; Modified: 2024-09-23
+; Modified: 2025-04-11
 ; Version:  1.0
 ; Notes:    Blinks a LED. Fcpu = 16 MHz.
 ; ------------------------------------------------------------------------------
