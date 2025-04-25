@@ -1,67 +1,82 @@
 MCU = atmega328p
 F_CPU = 16000000UL
 
-CXX = avr-g++
+CC      = avr-gcc
+CXX     = avr-g++
 OBJCOPY = avr-objcopy
-AVRA = avra
+AVRA    = avra
 
-CXXFLAGS = -mmcu=$(MCU) -DF_CPU=$(F_CPU) -Os -Wall -std=c++17
+CFLAGS   = -Wall -Os -DF_CPU=$(F_CPU) -mmcu=$(MCU)
+CXXFLAGS = -Wall -Os -DF_CPU=$(F_CPU) -mmcu=$(MCU)
 
-TARGET_CPP = build/cpp.elf
-TARGET_ALL = build/main.elf
-TARGET_HEX = build/main.hex
+TARGET   = main
 
-SRC_CPP = $(wildcard *.cpp) $(wildcard src/*.cpp)
-OBJ_CPP = $(patsubst %.cpp, build/%.o, $(notdir $(SRC_CPP)))
+ASM_SRC  = $(wildcard $(TARGET).asm)
+C_SRC    = $(wildcard $(TARGET).c)
+CPP_SRC  = $(wildcard $(TARGET).cpp)
 
-ASM_SRC = $(wildcard *.asm) $(wildcard src/*.asm)
-ASM_FILE = $(firstword $(notdir $(ASM_SRC)))
-ASM_BASE = $(basename $(ASM_FILE))
+BUILD    = build
 
-ASM_HEX = build/asm.hex
-ASM_MAP = build/asm.map
-ASM_LSS = build/asm.lss
-ASM_EEP = build/asm.eep
-ASM_OBJ = build/asm.o
+# Arquivos para asm
+ASM_HEX  = $(BUILD)/$(TARGET).hex
+ASM_OBJ  = $(BUILD)/$(TARGET).obj
+ASM_EEP  = $(BUILD)/$(TARGET).eep
+ASM_MAP  = $(BUILD)/$(TARGET).map
+ASM_LSS  = $(BUILD)/$(TARGET).lst
 
-all: $(TARGET_HEX)
+# Arquivos para C
+C_OBJ    = $(BUILD)/$(TARGET)_c.o
+C_ELF    = $(BUILD)/$(TARGET)_c.elf
+C_HEX    = $(BUILD)/$(TARGET)_c.hex
 
-cpp: $(TARGET_CPP)
+# Arquivos para C++
+CPP_OBJ  = $(BUILD)/$(TARGET)_cpp.o
+CPP_ELF  = $(BUILD)/$(TARGET)_cpp.elf
+CPP_HEX  = $(BUILD)/$(TARGET)_cpp.hex
+
+.PHONY: all asm c cpp clean help
+
+all: help
 
 asm: $(ASM_HEX)
 
-# Compilação C++
-build/%.o: %.cpp
-	mkdir -p build
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+c: $(C_HEX)
 
-build/%.o: src/%.cpp
-	mkdir -p build
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+cpp: $(CPP_HEX)
 
-# Link C++
-$(TARGET_CPP): $(OBJ_CPP)
-	$(CXX) $(CXXFLAGS) $^ -o $@
-
-# Link geral
-$(TARGET_ALL): $(OBJ_CPP)
-	$(CXX) $(CXXFLAGS) $^ -o $@
-
-$(TARGET_HEX): $(TARGET_ALL)
-	$(OBJCOPY) -O ihex -R .eeprom $< $@
+$(BUILD):
+	mkdir -p $(BUILD)
 
 # Compilação Assembly com AVRA
-$(ASM_HEX): $(ASM_SRC) | build
+$(ASM_HEX): $(ASM_SRC) | $(BUILD)
 	$(AVRA) -fI -m "$(ASM_MAP)" -l "$(ASM_LSS)" -e "$(ASM_EEP)" -d "$(ASM_OBJ)" -o "$(ASM_HEX)" $(firstword $(ASM_SRC))
 
-build:
-	mkdir -p build
+# Compilação C
+$(C_OBJ): $(C_SRC) | $(BUILD)
+	$(CC) $(CFLAGS) -c $(C_SRC) -o $(C_OBJ)
+
+$(C_ELF): $(C_OBJ)
+	$(CC) $(CFLAGS) $(C_OBJ) -o $(C_ELF)
+
+$(C_HEX): $(C_ELF)
+	$(OBJCOPY) -O ihex $(C_ELF) $(C_HEX)
+
+# Compilação C++
+$(CPP_OBJ): $(CPP_SRC) | $(BUILD)
+	$(CXX) $(CXXFLAGS) -c $(CPP_SRC) -o $(CPP_OBJ)
+
+$(CPP_ELF): $(CPP_OBJ)
+	$(CXX) $(CXXFLAGS) $(CPP_OBJ) -o $(CPP_ELF)
+
+$(CPP_HEX): $(CPP_ELF)
+	$(OBJCOPY) -O ihex $(CPP_ELF) $(CPP_HEX)
 
 clean:
-	rm -rf build
+	rm -rf $(BUILD)
 
-flash: $(TARGET_HEX)
-	avrdude -p $(MCU) -c usbtiny -U flash:w:$(TARGET_HEX):i
-
-.PHONY: all cpp asm clean flash build
+help:
+	@echo "make asm   - Compila projeto em Assembly (.asm com avra)"
+	@echo "make c     - Compila projeto em C"
+	@echo "make cpp   - Compila projeto em C++"
+	@echo "make clean - Remove arquivos gerados"
 
