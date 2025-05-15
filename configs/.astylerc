@@ -1,0 +1,77 @@
+--style=1tbs                            # Values allman / java / kr / stroustrup / whitesmith / vtk /
+#                                                  ratliff / gnu / linux / horstmann / 1tbs / google / 
+#                                                  mozilla / pico / lisp
+#--indent=force-tab                      # Values spaces=[2-20] / tab[=2-20] / force-tab[=2-20] / 
+--indent=spaces=4
+#                                                   force-tab-x[=]
+--attach-namespaces
+# --attach-classes
+--attach-inlines
+--attach-extern-c
+--attach-closing-while
+# --indent-classes
+# --indent-modifiers
+# --indent-switches
+--indent-cases
+--indent-namespaces
+--indent-after-parens
+--indent-continuation=2                 # Value: 0-4
+# --indent-labels
+# --indent-preproc-block
+--indent-preproc-define
+# --indent-preproc-cond
+# --indent-col1-comments
+--min-conditional-indent=2              # Value: 0-3
+# --break-blocks                        # Value: [=all]
+--max-continuation-indent=40            # Value: 40-120
+--pad-oper
+# --pad-comma                           # Obs: Not needed if --pad-oper is active
+# --pad-paren
+# --pad-paren-out
+# --pad-first-paren-out
+# --pad-paren-in
+# --pad-header
+--unpad-paren
+# --delete-empty-lines
+# --fill-empty-lines
+--align-pointer=name                    # Value: type / middle / name
+# --align-reference                     # Value: none / type / middle / name
+#                                         Obs: Not needed if pointers and references share layout
+# --break-closing-braces
+# --break-elseifs
+--break-one-line-headers
+--add-braces
+# --add-one-line-braces
+# --remove-braces
+# --break-return-type
+# --break-return-type-decl
+--attach-return-type
+--attach-return-type-decl
+# --keep-one-line-blocks
+--keep-one-line-statements
+# --convert-tabs
+# --close-templates
+# --remove-comment-prefix
+--max-code-length=120                   # Value: 50-200
+--break-after-logical                   # Value: c /cs /java
+--mode=c
+# --pad-method-prefix
+# --unpad-method-prefix
+# --pad-return-type
+# --unpad-return-type
+# --pad-param-type
+# --unpad-param-type
+# --align-method-colon
+# --pad-method-colon=all                # Value: none / all / after / before
+--suffix=none                           # Value: none / xxx (filename sufix) / .xxx (filename extension) 
+# --recursive
+# --dry-run
+# --exclude=####                        # Value: xxx (filename) / xxx/ (directory name)
+# --ignore-exclude-errors
+# --ignore-exclude-errors-x
+# --errors-to-stdout
+# --preserve-date
+# --verbose
+# --formatted
+# --quiet
+# --lineend=linux                       # Value: windows / linux / macold
