@@ -119,6 +119,8 @@ void timer1CompareACallback(void)
 void pcint0InterruptCallback()
 {
     uint8_t pinbAtual = PINB;
+
+    // esse ^ é uma xor
     uint8_t changedPins = pinbAtual ^ pinbAntigo;
 
     if((changedPins & (1 << PB2)) && !(pinbAtual & (1 << PB2))) {
