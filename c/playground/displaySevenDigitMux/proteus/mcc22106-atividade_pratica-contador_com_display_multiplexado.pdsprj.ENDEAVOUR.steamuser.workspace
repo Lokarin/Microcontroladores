@@ -2,7 +2,7 @@
 <WORKSPACE>
  <FRAME activewindow="0">
   <PLACEMENT>2c0000000000000001000000ffffffffffffffffffffffffffffffff05000000170000007b07000033040000</PLACEMENT>
-  <WINDOW type="default" module="ISIS"/>
+  <WINDOW type="default" module="STARTUP"/>
  </FRAME>
  <MODULE name="VSMDEBUG">
   <PWI>
@@ -65,7 +65,7 @@
      <ITEM name="TopLineAddress">00000000</ITEM>
     </PROPERTIES>
    </POPUP>
-   <POPUP w="16" x="163" flags="80000000" y="275" h="32" pid="14" iid="1">
+   <POPUP w="16" x="163" flags="00000000" y="275" h="32" pid="14" iid="1">
     <PROPERTIES>
      <ITEM name="DataType">2</ITEM>
      <ITEM name="DispChars">Yes</ITEM>
