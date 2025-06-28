@@ -2,28 +2,29 @@
 
 #include "funsape/funsapeLibGlobalDefines.hpp"
 #include "funsape/device/funsapeLibHd44780.hpp"
+#include "spiAtmega328p/spiAtmega328p.hpp"
 
 Hd44780 display;
 vuint8_t spiReceived = 0;
 volatile bool_t dataReady = false;
 
-void spi_init_slave() {
-    // Pinos como entrada
-    clrBit(DDRB, PB2); // SS
-    clrBit(DDRB, PB3); // MOSI
-    clrBit(DDRB, PB5); // SCK
-    setBit(DDRB, PB4); // MISO
-    
-    // SPI Enable, Slave
-    setBit(SPCR, SPIE);     // Enable de interrupções, ativo em 1
-    setBit(SPCR, SPE);      // Enable do SPI, ativo em 1
-    clrBit(SPCR, DORD);     // Ordem dos bits. 1 para começar por MSB
-    clrBit(SPCR, MSTR);     // Master/Slave select. 1 para Master
-    clrBit(SPCR, CPOL);     // Polariação do SCK. 1 para HIGH em idle
-    setBit(SPCR, CPHA);     // Fase do clock. Em 1, Coloca o bit em MOSI na subida
-
-    clrBit(SPSR, SPI2X);    // Double Speed. Ativo em 1.
-}
+//void spi_init_slave() {
+//    // Pinos como entrada
+//    clrBit(DDRB, PB2); // SS
+//    clrBit(DDRB, PB3); // MOSI
+//    clrBit(DDRB, PB5); // SCK
+//    setBit(DDRB, PB4); // MISO
+//    
+//    // SPI Enable, Slave
+//    setBit(SPCR, SPIE);     // Enable de interrupções, ativo em 1
+//    setBit(SPCR, SPE);      // Enable do SPI, ativo em 1
+//    clrBit(SPCR, DORD);     // Ordem dos bits. 1 para começar por MSB
+//    clrBit(SPCR, MSTR);     // Master/Slave select. 1 para Master
+//    clrBit(SPCR, CPOL);     // Polariação do SCK. 1 para HIGH em idle
+//    setBit(SPCR, CPHA);     // Fase do clock. Em 1, Coloca o bit em MOSI na subida
+//
+//    clrBit(SPSR, SPI2X);    // Double Speed. Ativo em 1.
+//}
 
 int main()
 {
@@ -34,7 +35,7 @@ int main()
     GpioBus gpioDisplayData;
 
     // Configure SPI
-    spi_init_slave();
+    Spi::init(Spi::Mode::SLAVE, Spi::ClockRate::FOSC_4);
 
     // Configure Gpio Pins
     gpioDisplayEn.init(&DDRD, GpioPin::PinIndex::P0);
@@ -70,7 +71,12 @@ int main()
     return 0;
 }
 
-ISR(SPI_STC_vect) {
-    spiReceived = SPDR;
+//ISR(SPI_STC_vect) {
+//    spiReceived = SPDR;
+//    dataReady = true;
+//}
+
+void Spi::spiCallbackInterrupt(uint8_t received) {
+    spiReceived = received;
     dataReady = true;
 }
