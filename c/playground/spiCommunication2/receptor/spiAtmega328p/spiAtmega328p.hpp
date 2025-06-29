@@ -20,7 +20,14 @@ namespace Spi {
         FOSC_128
     };
 
-    void init(Mode mode, ClockRate rate);
+    enum class DataMode {
+        MODE_0, // CPOL = 0, CPHA = 0
+        MODE_1, // CPOL = 0, CPHA = 1
+        MODE_2, // CPOL = 1, CPHA = 0
+        MODE_3  // CPOL = 1, CPHA = 1
+    };
+
+    void init(Mode mode, ClockRate rate, DataMode dataMode);
     void sendByte(uint8_t data);
     uint8_t getLastReceived();
     bool isBusy();

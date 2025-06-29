@@ -23,7 +23,7 @@ int main()
     timer1.activateCompareAInterrupt();
 
     // Configure SPI
-    Spi::init(Spi::Mode::MASTER, Spi::ClockRate::FOSC_4);
+    Spi::init(Spi::Mode::MASTER, Spi::ClockRate::FOSC_4, Spi::DataMode::MODE_1);
     Spi::activateSpiCallbackInterrupt();
 
     // Configure INT0

@@ -11,7 +11,7 @@ ISR(SPI_STC_vect) {
     Spi::spiCallbackInterrupt(SPDR);
 }
 
-void Spi::init(Mode mode, ClockRate rate) {
+void Spi::init(Mode mode, ClockRate rate, DataMode dataMode) {
     // Configure pins
     if (mode == Mode::MASTER) {
         DDRB |= (1 << PB2) | (1 << PB3) | (1 << PB5); // SS, MOSI, SCK
@@ -42,9 +42,25 @@ void Spi::init(Mode mode, ClockRate rate) {
             break;
     }
 
-    // CPOL = 0, CPHA = 1 (modo usado no seu projeto)
-    SPCR &= ~(1 << CPOL);
-    SPCR |= (1 << CPHA);
+    // CPOL e CPHA baseados em dataMode
+    switch (dataMode) {
+        case DataMode::MODE_0:
+            SPCR &= ~(1 << CPOL);
+            SPCR &= ~(1 << CPHA);
+            break;
+        case DataMode::MODE_1:
+            SPCR &= ~(1 << CPOL);
+            SPCR |=  (1 << CPHA);
+            break;
+        case DataMode::MODE_2:
+            SPCR |=  (1 << CPOL);
+            SPCR &= ~(1 << CPHA);
+            break;
+        case DataMode::MODE_3:
+            SPCR |=  (1 << CPOL);
+            SPCR |=  (1 << CPHA);
+            break;
+    }
 
     SPSR &= ~(1 << SPI2X); // normal speed
 }
