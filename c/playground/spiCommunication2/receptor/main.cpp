@@ -4,7 +4,7 @@
 #include "funsape/peripheral/funsapeLibInt0.hpp"
 #include "funsape/peripheral/funsapeLibTimer1.hpp"
 #include "funsape/device/funsapeLibHd44780.hpp"
-#include "spiAtmega328p/spiAtmega328p.hpp"
+#include "spi/atmega328pSpi.hpp"
 
 Hd44780 display;
 volatile bool_t dataReady = false;

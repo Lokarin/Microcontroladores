@@ -3,7 +3,7 @@
 #include "funsape/funsapeLibGlobalDefines.hpp"
 #include "funsape/peripheral/funsapeLibAdc.hpp"
 #include "funsape/peripheral/funsapeLibTimer0.hpp"
-#include "spiAtmega328p/spiAtmega328p.hpp"
+#include "spi/atmega328pSpi.hpp"
 
 int main()
 {
