@@ -24,6 +24,7 @@ int main()
 
     // Configure SPI
     Spi::init(Spi::Mode::MASTER, Spi::ClockRate::FOSC_4);
+    Spi::activateSpiCallbackInterrupt();
 
     // Configure INT0
     int0.init(Int0::SenseMode::FALLING_EDGE);

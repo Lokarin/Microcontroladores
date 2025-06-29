@@ -9,6 +9,7 @@ int main()
 {
     // Configure SPI
     Spi::init(Spi::Mode::SLAVE, Spi::ClockRate::FOSC_4);
+    Spi::activateSpiCallbackInterrupt();
 
     // Configure ADC
     adc.init(

@@ -23,7 +23,7 @@ void Spi::init(Mode mode, ClockRate rate) {
     }
 
     // Configure SPI control register
-    SPCR = (1 << SPE) | (1 << SPIE);
+    SPCR = (1 << SPE);
 
     if (mode == Mode::MASTER) SPCR |= (1 << MSTR);
 
@@ -47,6 +47,14 @@ void Spi::init(Mode mode, ClockRate rate) {
     SPCR |= (1 << CPHA);
 
     SPSR &= ~(1 << SPI2X); // normal speed
+}
+
+void Spi::activateSpiCallbackInterrupt() {
+    SPCR |= (1 << SPIE);
+}
+
+void Spi::disableSpiCallbackInterrupt() {
+    SPCR &= ~(1 << SPIE);
 }
 
 void Spi::sendByte(uint8_t data) {

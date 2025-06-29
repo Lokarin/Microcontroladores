@@ -25,6 +25,8 @@ namespace Spi {
     uint8_t getLastReceived();
     bool isBusy();
     void spiCallbackInterrupt(uint8_t received); // Função que o usuário pode implementar
+    void activateSpiCallbackInterrupt();
+    void disableSpiCallbackInterrupt();
 
 } // namespace Spi
 
