@@ -2,11 +2,11 @@
 
 #include "funsape/funsapeLibGlobalDefines.hpp"
 #include "funsape/peripheral/funsapeLibInt0.hpp"
+#include "funsape/peripheral/funsapeLibTimer1.hpp"
 #include "funsape/device/funsapeLibHd44780.hpp"
 #include "spiAtmega328p/spiAtmega328p.hpp"
 
 Hd44780 display;
-vuint8_t spiReceived = 0;
 volatile bool_t dataReady = false;
 
 int main()
@@ -16,6 +16,11 @@ int main()
     GpioPin gpioDisplayRs;
     GpioPin gpioDisplayRw;
     GpioBus gpioDisplayData;
+
+    // Configure Timer0
+    timer1.setCompareAValue(4687-1);
+    timer1.init(Timer1::Mode::CTC_OCRA, Timer1::ClockSource::PRESCALER_1024);
+    timer1.activateCompareAInterrupt();
 
     // Configure SPI
     Spi::init(Spi::Mode::MASTER, Spi::ClockRate::FOSC_4);
@@ -39,9 +44,9 @@ int main()
     display.setDataPort(&gpioDisplayData);
     display.init(Hd44780::Size::LCD_16X2);
     display.stdio();
-    printf("--Teste do LCD--\n0123456789ABCDEF\n");
-    delayMs(2000);
-    display.clearScreen();
+    //printf("--Teste do LCD--\n0123456789ABCDEF\n");
+    //delayMs(2000);
+    //display.clearScreen();
 
     // SS do Slave
     setBit(DDRB, PB1);
@@ -50,13 +55,6 @@ int main()
     sei();
 
     while(true) {
-        if (dataReady) {
-            uint16_t dataFull = spiReceived << 2;
-            display.clearScreen();
-            printf("ADC: %u", dataFull);
-            dataReady = false;
-        }
-        delayMs(300);
     }
 
     return 0;
@@ -64,6 +62,17 @@ int main()
 
 void int0InterruptCallback() {
     Spi::sendByte(0);
-    spiReceived = Spi::getLastReceived();
+}
+
+void Spi::spiCallbackInterrupt(uint8_t received) {
     dataReady = true;
+}
+
+void timer1CompareACallback() {
+        if (dataReady) {
+            uint16_t dataFull = Spi::getLastReceived() << 2;
+            display.clearScreen();
+            printf("ADC: %u", dataFull);
+            dataReady = false;
+        }
 }
