@@ -1,0 +1,150 @@
+GAS LISTING /tmp/ccHW9bZe.s 			page 1
+
+
+   1               		.file	"main.cpp"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   7               		.text
+   8               		.section	.text._Z8sendByteh,"ax",@progbits
+   9               	.global	_Z8sendByteh
+  11               	_Z8sendByteh:
+  12               	/* prologue: function */
+  13               	/* frame size = 0 */
+  14               	/* stack size = 0 */
+  15               	.L__stack_usage = 0
+  16               	.L2:
+  17 0000 9091 C000 		lds r25,192
+  18 0004 95FF      		sbrs r25,5
+  19 0006 00C0      		rjmp .L2
+  20 0008 8093 C600 		sts 198,r24
+  21               	/* epilogue start */
+  22 000c 0895      		ret
+  24               		.section	.text.main,"ax",@progbits
+  25               	.global	main
+  27               	main:
+  28               	/* prologue: function */
+  29               	/* frame size = 0 */
+  30               	/* stack size = 0 */
+  31               	.L__stack_usage = 0
+  32 0000 87E6      		ldi r24,lo8(103)
+  33 0002 90E0      		ldi r25,0
+  34 0004 9093 C500 		sts 196+1,r25
+  35 0008 8093 C400 		sts 196,r24
+  36 000c 88E0      		ldi r24,lo8(8)
+  37 000e 8093 C100 		sts 193,r24
+  38 0012 86E0      		ldi r24,lo8(6)
+  39 0014 8093 C200 		sts 194,r24
+  40 0018 2FEF      		ldi r18,lo8(3199999)
+  41 001a 83ED      		ldi r24,hi8(3199999)
+  42 001c 90E3      		ldi r25,hlo8(3199999)
+  43 001e 2150      	1:	subi r18,1
+  44 0020 8040      		sbci r24,0
+  45 0022 9040      		sbci r25,0
+  46 0024 01F4      		brne 1b
+  47 0026 00C0      		rjmp .
+  48 0028 0000      		nop
+  49 002a 8091 0000 		lds r24,teste
+  50 002e 8111      		cpse r24,__zero_reg__
+  51 0030 00C0      		rjmp .L4
+  52 0032 0E94 0000 		call _Z8sendByteh
+  53 0036 80E0      		ldi r24,0
+  54 0038 0E94 0000 		call _Z8sendByteh
+  55 003c 2FEF      		ldi r18,lo8(6399999)
+  56 003e 87EA      		ldi r24,hi8(6399999)
+  57 0040 91E6      		ldi r25,hlo8(6399999)
+  58 0042 2150      	1:	subi r18,1
+  59 0044 8040      		sbci r24,0
+  60 0046 9040      		sbci r25,0
+GAS LISTING /tmp/ccHW9bZe.s 			page 2
+
+
+  61 0048 01F4      		brne 1b
+  62 004a 00C0      		rjmp .
+  63 004c 0000      		nop
+  64 004e 81E0      		ldi r24,lo8(1)
+  65 0050 0E94 0000 		call _Z8sendByteh
+  66 0054 82E0      		ldi r24,lo8(2)
+  67 0056 0E94 0000 		call _Z8sendByteh
+  68 005a 88E0      		ldi r24,lo8(8)
+  69 005c 0E94 0000 		call _Z8sendByteh
+  70 0060 80E1      		ldi r24,lo8(16)
+  71 0062 0E94 0000 		call _Z8sendByteh
+  72 0066 84E0      		ldi r24,lo8(4)
+  73 0068 0E94 0000 		call _Z8sendByteh
+  74 006c 80E1      		ldi r24,lo8(16)
+  75 006e 0E94 0000 		call _Z8sendByteh
+  76 0072 80E0      		ldi r24,0
+  77 0074 0E94 0000 		call _Z8sendByteh
+  78               	.L5:
+  79 0078 00C0      		rjmp .L5
+  80               	.L4:
+  81 007a 80E0      		ldi r24,0
+  82 007c 0E94 0000 		call _Z8sendByteh
+  83 0080 83E0      		ldi r24,lo8(3)
+  84 0082 0E94 0000 		call _Z8sendByteh
+  85 0086 2FEF      		ldi r18,lo8(1599999)
+  86 0088 89E6      		ldi r24,hi8(1599999)
+  87 008a 98E1      		ldi r25,hlo8(1599999)
+  88 008c 2150      	1:	subi r18,1
+  89 008e 8040      		sbci r24,0
+  90 0090 9040      		sbci r25,0
+  91 0092 01F4      		brne 1b
+  92 0094 00C0      		rjmp .
+  93 0096 0000      		nop
+  94 0098 80E0      		ldi r24,0
+  95 009a 0E94 0000 		call _Z8sendByteh
+  96 009e 81E0      		ldi r24,lo8(1)
+  97 00a0 0E94 0000 		call _Z8sendByteh
+  98 00a4 2FEF      		ldi r18,lo8(1599999)
+  99 00a6 89E6      		ldi r24,hi8(1599999)
+ 100 00a8 98E1      		ldi r25,hlo8(1599999)
+ 101 00aa 2150      	1:	subi r18,1
+ 102 00ac 8040      		sbci r24,0
+ 103 00ae 9040      		sbci r25,0
+ 104 00b0 01F4      		brne 1b
+ 105 00b2 00C0      		rjmp .
+ 106 00b4 0000      		nop
+ 107 00b6 80E0      		ldi r24,0
+ 108 00b8 0E94 0000 		call _Z8sendByteh
+ 109 00bc 80E0      		ldi r24,0
+ 110 00be 0E94 0000 		call _Z8sendByteh
+ 111 00c2 00C0      		rjmp .L5
+ 113               	.global	teste
+ 114               		.section	.bss.teste,"aw",@nobits
+ 117               	teste:
+ 118 0000 00        		.zero	1
+ 119               		.ident	"GCC: (GNU) 15.1.0"
+ 120               	.global __do_clear_bss
+GAS LISTING /tmp/ccHW9bZe.s 			page 3
+
+
+GAS LISTING /tmp/ccHW9bZe.s 			page 4
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.cpp
+     /tmp/ccHW9bZe.s:2      *ABS*:0000003e __SP_H__
+     /tmp/ccHW9bZe.s:3      *ABS*:0000003d __SP_L__
+     /tmp/ccHW9bZe.s:4      *ABS*:0000003f __SREG__
+     /tmp/ccHW9bZe.s:5      *ABS*:00000000 __tmp_reg__
+     /tmp/ccHW9bZe.s:6      *ABS*:00000001 __zero_reg__
+     /tmp/ccHW9bZe.s:11     .text._Z8sendByteh:00000000 _Z8sendByteh
+     /tmp/ccHW9bZe.s:27     .text.main:00000000 main
+     /tmp/ccHW9bZe.s:47     .text.main:00000028 L0
+     /tmp/ccHW9bZe.s:117    .bss.teste:00000000 teste
+     /tmp/ccHW9bZe.s:62     .text.main:0000004c L0
+     /tmp/ccHW9bZe.s:92     .text.main:00000096 L0
+     /tmp/ccHW9bZe.s:105    .text.main:000000b4 L0
+     /tmp/ccHW9bZe.s:16     .text._Z8sendByteh:00000000 .L2
+     /tmp/ccHW9bZe.s:43     .text.main:0000001e .L11
+     /tmp/ccHW9bZe.s:80     .text.main:0000007a .L4
+     /tmp/ccHW9bZe.s:58     .text.main:00000042 .L12
+     /tmp/ccHW9bZe.s:78     .text.main:00000078 .L5
+     /tmp/ccHW9bZe.s:88     .text.main:0000008c .L13
+     /tmp/ccHW9bZe.s:101    .text.main:000000aa .L14
+
+UNDEFINED SYMBOLS
+__do_clear_bss
